@@ -38,7 +38,7 @@ def main():
     if not os.path.exists(data_path):
         print(f"❌ 错误：未在 ./data/ 文件夹找到数据集文件 '{data_path}'！")
         print("💡 请将 GSE183947_fpkm.csv.gz 放入项目下 data 文件夹，再重新运行。")
-    sys.exit(1)
+        sys.exit(1)
         
     # 1. 数据载入与全自动样本分组[span_0](start_span)[span_0](end_span)
     df_real = mbt.load_data(data_path)
@@ -57,10 +57,16 @@ def main():
         (df_analyzed["Mean_Treat"] > 0.5)
     ].copy()
     final_targets = final_targets.sort_values(by="log2_FC", ascending=False)
+    print("筛选得到差异基因数量：", len(final_targets))
+    if final_targets.empty:
+        print("⚠️ 警告：无满足阈值的差异基因，流程终止！")
+        sys.exit(0)
     
     report_df = final_targets[["Mean_Control", "Mean_Treat", "Fold_Change", "log2_FC", "p_value"]].copy()
     report_df.columns = ["Normal Mean (FPKM)", "Breast Cancer Mean (FPKM)", "Fold Change", "log2(Fold Change)", "p-value (t-test)"]
-    
+
+    os.makedirs(out_dir, exist_ok=True)
+    print("正在保存Excel：", os.path.join(out_dir, "GSE183947_Breast_Cancer_Target_Report.xlsx"))
     excel_file = os.path.join(out_dir, "GSE183947_Breast_Cancer_Target_Report.xlsx")
     with pd.ExcelWriter(excel_file, engine='openpyxl') as writer:
         report_df.to_excel(writer, sheet_name="Candidate Targets", index_label="Gene Symbol")
@@ -107,7 +113,10 @@ def main():
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=["Normal", "Cancer"], yticklabels=["Normal", "Cancer"], cbar=False, annot_kws={"size": 14, "weight": "bold"})
     plt.title("AI Diagnosis Confusion Matrix", fontsize=12, fontweight='bold')
     plt.tight_layout()
-    plt.savefig(os.path.join(out_dir, "01_confusion_matrix.png"), dpi=300)
+    os.makedirs(out_dir, exist_ok=True)
+    save_path = os.path.join(out_dir, "01_confusion_matrix.png")
+    print("保存图片：", save_path)
+    plt.savefig(save_path, dpi=300, bbox_inches="tight")
     plt.close()
 
     # 6. 5折交叉验证 ROC 评估[span_6](start_span)[span_6](end_span)
@@ -141,7 +150,10 @@ def main():
     plt.legend(loc="lower right", fontsize=9)
     plt.grid(True, linestyle=':', alpha=0.5)
     plt.tight_layout()
-    plt.savefig(os.path.join(out_dir, "02_cross_validation_roc.png"), dpi=300)
+    os.makedirs(out_dir, exist_ok=True)
+    save_path = os.path.join(out_dir, "02_cross_validation_roc.png")
+    print("保存图片：", save_path)
+    plt.savefig(save_path, dpi=300, bbox_inches="tight")
     plt.close()
 
     # 7. 置换检验对决（Permutation Test）[span_7](start_span)[span_7](end_span)
@@ -173,7 +185,10 @@ def main():
     plt.xlabel('5-Fold CV AUC Score')
     plt.legend()
     plt.tight_layout()
-    plt.savefig(os.path.join(out_dir, "03_permutation_test.png"), dpi=300)
+    os.makedirs(out_dir, exist_ok=True)
+    save_path = os.path.join(out_dir, "03_permutation_test.png")
+    print("保存图片：", save_path)
+    plt.savefig(save_path, dpi=300, bbox_inches="tight")
     plt.close()
 
     # 8. 加装异常捕捉的 Enrichr 联网 KEGG 富集分析[span_10](start_span)[span_10](end_span)
@@ -199,7 +214,10 @@ def main():
                 cbar.set_label("Significance")
                 plt.grid(True, linestyle=':', alpha=0.5)
                 plt.tight_layout()
-                plt.savefig(os.path.join(out_dir, "04_kegg_enrichment.png"), dpi=300)
+                os.makedirs(out_dir, exist_ok=True)
+                save_path = os.path.join(out_dir, "04_kegg_enrichment.png")
+                print("保存图片：", save_path)
+                plt.savefig(save_path, dpi=300, bbox_inches="tight")
                 plt.close()
                 print(f"💾 KEGG 富集分析气泡图已保存。")
             else:
