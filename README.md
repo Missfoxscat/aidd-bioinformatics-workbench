@@ -21,7 +21,7 @@ AI-Driven Drug Discovery Transcriptomics Analysis Pipeline
 ## 📂 仓库目录结构
 aidd-bioinformatics-workbench/
 ├── notebooks/          # Jupyter交互式分析笔记（调试、绘图、分步演示）
-├── scripts/            # 完整可运行流水线脚本 pipeline.py
+├── scripts/           # 完整可运行流水线脚本 pipeline.py
 ├── src/                # 底层通用工具库 my_bio_tools.py
 ├── data/               # 数据集说明、GSE183947下载指引、示例数据
 ├── results/            # 自动输出文件夹：Excel靶点报告、ROC/混淆矩阵/富集图
