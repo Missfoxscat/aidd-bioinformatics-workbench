@@ -33,12 +33,12 @@ def main():
     
     # 0. 初始化输出路径
     out_dir = create_output_dir()
-    data_path = "GSE183947_fpkm.csv.gz"
+    data_path = os.path.join("data", "GSE183947_fpkm.csv.gz")
     
     if not os.path.exists(data_path):
-        print(f"❌ 错误：未在当前目录下找到数据集文件 '{data_path}'！")
-        print("💡 请先查阅 README.md 中的数据下载渠道获取数据集。")
-        sys.exit(1)
+        print(f"❌ 错误：未在 ./data/ 文件夹找到数据集文件 '{data_path}'！")
+        print("💡 请将 GSE183947_fpkm.csv.gz 放入项目下 data 文件夹，再重新运行。")
+    sys.exit(1)
         
     # 1. 数据载入与全自动样本分组[span_0](start_span)[span_0](end_span)
     df_real = mbt.load_data(data_path)
