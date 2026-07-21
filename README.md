@@ -3,7 +3,6 @@ AI-Driven Drug Discovery Transcriptomics Analysis Pipeline
 乳腺癌转录组差异基因挖掘 + 机器学习AI诊断全闭环生信流水线
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)]
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg)]
-[![Status Ready](https://img.shields.io/badge/status-production-ready-brightgreen)]
 
 ## 📌 项目简介
 本仓库是一套标准化、可复用的**肿瘤转录组+AI制药**分析闭环工具链，基于GEO公共数据集GSE183947（乳腺癌FPKM表达矩阵）实现完整分析流程：
