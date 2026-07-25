@@ -15,6 +15,7 @@ AI-Driven Drug Discovery Transcriptomics Analysis Pipeline
     - 置换检验Permutation Test验证靶点显著性
 5. Enrichr在线KEGG通路富集分析+气泡图可视化
 6. 封装通用底层生信工具库，支持一键复用至其他GEO/TCGA数据集
+7. 边缘基因挖掘：突破p<0.05阈值，系统性提出并验证生物学假设
 
 本项目适配AI制药交叉赛道学习、本科大创、硕士横向药企项目、简历作品集展示，兼顾**生物信息学统计**与**工业级机器学习工程化**，规避新手环境配置坑，支持云端Colab/本地服务器双运行。
 
