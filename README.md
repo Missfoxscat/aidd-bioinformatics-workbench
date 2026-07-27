@@ -26,7 +26,7 @@ aidd-bioinformatics-workbench/
 ├── src/                # 底层通用工具库 my_bio_tools.py
 ├── data/               # 数据集说明、GSE183947下载指引
 ├── results/            # 自动输出：Excel靶点报告、ROC/混淆矩阵/富集图
-├── hypotheses/         # 科学猜测与验证记录 ← 新增这行
+├── hypotheses/         # 科学猜测与验证记录
 ├── README.md
 ├── LICENSE
 └── .gitignore
